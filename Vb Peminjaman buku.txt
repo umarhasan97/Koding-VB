@@ -1,0 +1,85 @@
+Sub bersih()
+cmbkodebuku.Text = "Masukan Kode Buku"
+txtjudulbuku.Text = ""
+txtharga.Text = ""
+txthargasewa.Text = ""
+txtlamapinjam.Text = ""
+txtdenda.Text = ""
+txttotalbayar.Text = ""
+End Sub
+
+Sub aktif()
+cmbkodebuku.Enabled = True
+txtjudulbuku.Enabled = True
+txtharga.Enabled = True
+txthargasewa.Enabled = True
+txtlamapinjam.Enabled = True
+txtdenda.Enabled = True
+txttotalbayar.Enabled = True
+cmdhitung.Enabled = True
+cmdbatal.Enabled = True
+cmdkeluar.Enabled = True
+End Sub
+
+Sub nonaktif()
+cmbkodebuku.Enabled = False
+txtjudulbuku.Enabled = False
+txtharga.Enabled = False
+txthargasewa.Enabled = False
+txtlamapinjam.Enabled = False
+txtdenda.Enabled = False
+txttotalbayar.Enabled = False
+cmdhitung.Enabled = False
+cmdbatal.Enabled = False
+cmdkeluar.Enabled = False
+End Sub
+
+Private Sub cmbkodebuku_Click()
+If (cmbkodebuku.Text) = "VB6" Then
+    txtjudulbuku.Text = "Belajar Visual Basic"
+    txtharga.Text = 15000
+Else
+If (cmbkodebuku.Text) = "PHP" Then
+    txtjudulbuku.Text = "PHP Untuk Pemula"
+    txtharga.Text = 25000
+Else
+    txtjudulbuku.Text = "Belajar Borland C++"
+    txtharga.Text = 12000
+End If
+End If
+End Sub
+
+Private Sub cmdaktif_Click()
+aktif
+End Sub
+
+Private Sub cmdbatal_Click()
+Call bersih
+Call nonaktif
+End Sub
+
+Private Sub cmdhitung_Click()
+txthargasewa.Text = Val(txtharga.Text * txtlamapinjam.Text)
+If (txtlamapinjam > 5) Then
+txtdenda.Text = 5000
+End If
+If (txtlamapinjam > 7) Then
+txtdenda.Text = 7500
+End If
+If (txtlamapinjam > 10) Then
+txtdenda.Text = 10000
+End If
+txttotalbayar.Text = Val(txthargasewa.Text) + Val(txtdenda.Text)
+End Sub
+
+Private Sub cmdkeluar_Click()
+If MsgBox("Anda yakin mau keluar?", vbQuestion + vbYesNo, "Konfirmasi") = vbYes Then End
+End Sub
+
+Private Sub Form_Activate()
+Call bersih
+Call nonaktif
+cmbkodebuku.AddItem ("VB6")
+cmbkodebuku.AddItem ("PHP")
+cmbkodebuku.AddItem ("C++")
+End Sub
